@@ -10,8 +10,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You will need Java 11 or higher installed and configured on your system PATH.  
-It's best to use the [OpenJDK][openjdk], Windows users can get binaries from [AdoptOpenJDK][adoptopenjdk].
+- You will need Java 11 installed and configured on your system PATH.  
+  It's best to use the [OpenJDK][openjdk], Windows users can get binaries from [AdoptOpenJDK][adoptopenjdk].
+- Latest [Gradle][gradle]
 
 ### Installing
 
@@ -26,7 +27,11 @@ Clone the repository: `git clone https://github.com/Skerwe/logstarbook.git`
 
 The final output of the challenge is printed to the console or the log file for the specific day under the *logs* folder.
 
-### Running Tests
+### Running the Application
+
+`java -jar ./app/build/libs/app-0.1.0-all.jar -help`
+
+### Running the Tests
 
 1. Compile the tests:  
     `gradlew compileTestJava`
