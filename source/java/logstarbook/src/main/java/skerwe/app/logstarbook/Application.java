@@ -8,8 +8,32 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-public class App {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import skerwe.app.logstarbook.engine.ApplicationController;
+
+/**
+ * Application to track numbers for an object on a spreadsheet.
+ * For example logging the amount of books your kids read, so they can be rewarded after predetermined amount of books.
+ *
+ * @author Quintin Henn
+ * @since 29.02.2022
+ * @version 09.04.2022
+ */
+public class Application {
+
+  private static Logger logger = LogManager.getLogger();
+
+  private static final String VERSION = "Version 0.1.0 (09-04-2022)";
+
+  private Application() {}
+
+  /**
+   * Open or creates a new sheet based on the command line arguments.
+   * Prints version, license, help and useage information.
+   * @param args command line arguments for sheet configuration
+   */
   public static void main(String[] args) {
 
     System.out.println(getLicense());
@@ -36,16 +60,19 @@ public class App {
           return;
         }
 
-        App application = new App();
+        Application app = new Application();
 
         if (cmd.hasOption("c")) {
-          System.out.printf("create new data sheet with name %s", cmd.getOptionValue("c"));
+          ApplicationController.getInstance().create(cmd.getOptionValue("c"));
+          System.out.printf("create new data sheet with name %s%n", cmd.getOptionValue("c"));
         }
         if (cmd.hasOption("o")) {
-          System.out.printf("Open the data sheet with name %s", cmd.getOptionValue("o"));
+          ApplicationController.getInstance().open(cmd.getOptionValue("o"));
+          System.out.printf("Open the data sheet with name %s%n", cmd.getOptionValue("o"));
         }
         if (cmd.hasOption("d")) {
-          System.out.printf("Delete the data sheet with name %s", cmd.getOptionValue("d"));
+          ApplicationController.getInstance().delete(cmd.getOptionValue("d"));
+          System.out.printf("Delete the data sheet with name %s%n", cmd.getOptionValue("d"));
         }
 
       } catch (ParseException | NumberFormatException e) {
@@ -53,13 +80,13 @@ public class App {
         System.exit(1);
       }
     }
-
+    System.out.println();
   }
 
   private static void printHelpAndUsage() {
     System.out.println();
     HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp("sgen [command]", getOptions());
+    formatter.printHelp("logstarbook [command]", getOptions());
   }
 
   private static Options getOptions() {
@@ -114,10 +141,10 @@ public class App {
         "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n" +
         "LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n" +
         "OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n" +
-        "SOFTWARE.";
+        "SOFTWARE.\n\n";
   }
 
   private static String getVersionInfo() {
-    return "\nVersion 0.1.0 (26-02-2022)";
+    return VERSION;
   }
 }

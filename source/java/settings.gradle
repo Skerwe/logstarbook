@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'LogStarBook'
-include('app')
+include('logstarbook')

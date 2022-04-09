@@ -11,9 +11,9 @@ java {
 }
 
 def name = 'LogStarBook'
-def mainAppClass = 'skerwe.app.logstarbook.App'
+def mainAppClass = 'skerwe.app.logstarbook.Application'
 
-version = '0.1.0'
+project.version = '0.1.0'
 
 repositories {
   // Use Maven Central for resolving dependencies.
@@ -25,6 +25,7 @@ dependencies {
   implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
   implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
   implementation 'commons-cli:commons-cli:1.5.0'
+  implementation 'com.google.code.gson:gson:2.9.0'
 
   compileOnly 'org.projectlombok:lombok:1.18.22'
   annotationProcessor 'org.projectlombok:lombok:1.18.22'
@@ -50,7 +51,8 @@ jar {
     attributes(
       'Main-Class': mainAppClass,
       'Name': name,
-      'Version': version
+      'Version': version,
+      'Multi-Release': true
     )
   }
 }
